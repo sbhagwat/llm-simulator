@@ -537,7 +537,7 @@ export default function EBSSimulator() {
 
       {/* Charts row */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 14 }}>
-        <Card title="IOPS Over Time" icon={BarChart2 = Activity}>
+        <Card title="IOPS Over Time" icon={Activity}>
           {iopsHistory.length > 1 ? (
             <ResponsiveContainer width="100%" height={140}>
               <BarChart data={iopsHistory} margin={{ top: 5, right: 5, bottom: 0, left: 0 }}>
