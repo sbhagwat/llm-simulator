@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { Play, Pause, RotateCcw, ChevronRight, Cpu, Brain, BarChart2, Zap } from 'lucide-react'
 import { buildVocab, encode, TinyTransformer } from './transformer'
+import EBSSimulator from './EBSSimulator'
 
 const DEFAULT_TEXT = `the cat sat on the mat
 the dog ran in the park
@@ -173,7 +174,7 @@ function StageIndicator({ currentStage }) {
   )
 }
 
-export default function App() {
+function LLMSimulator() {
   const [text, setText] = useState(DEFAULT_TEXT)
   const [vocab, setVocab] = useState(null)
   const [running, setRunning] = useState(false)
@@ -482,6 +483,34 @@ export default function App() {
       <div style={{ marginTop: 16, textAlign: 'center', color: '#374151', fontSize: 11 }}>
         Educational simulation. Real LLMs use the same core principles at massive scale — billions of parameters, terabytes of data.
       </div>
+    </div>
+  )
+}
+
+const TABS = [
+  { id: 'llm', label: '🧠 LLM Training' },
+  { id: 'ebs', label: '💾 NVMe / EBS I/O' },
+]
+
+export default function App() {
+  const [tab, setTab] = useState('llm')
+  return (
+    <div style={{ minHeight: '100vh', background: '#0a0a0f' }}>
+      <div style={{ background: '#0d0d14', borderBottom: '1px solid #1e1e2e', padding: '0 24px', display: 'flex' }}>
+        {TABS.map(t => (
+          <button key={t.id} onClick={() => setTab(t.id)}
+            style={{
+              padding: '14px 20px', background: 'transparent', border: 'none',
+              borderBottom: `2px solid ${tab === t.id ? '#7c3aed' : 'transparent'}`,
+              color: tab === t.id ? '#f1f5f9' : '#6b7280',
+              cursor: 'pointer', fontWeight: 600, fontSize: 13,
+              transition: 'all 0.2s'
+            }}>
+            {t.label}
+          </button>
+        ))}
+      </div>
+      {tab === 'llm' ? <LLMSimulator /> : <EBSSimulator />}
     </div>
   )
 }
