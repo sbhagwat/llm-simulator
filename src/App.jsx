@@ -25,7 +25,7 @@ const STAGE_INFO = {
 function Card({ title, icon: Icon, children, style }) {
   return (
     <div style={{
-      background: '#13131a', border: '1px solid #1e1e2e',
+      background: '#2e3044', border: '1px solid #3a3d52',
       borderRadius: 12, padding: '16px', ...style
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
@@ -47,8 +47,8 @@ function TokenChip({ char, index, isActive }) {
       transform: isActive ? 'scale(1.2)' : 'scale(1)'
     }}>
       <div style={{
-        background: isActive ? '#7c3aed' : '#1e1e2e',
-        border: `1px solid ${isActive ? '#a855f7' : '#2d2d3e'}`,
+        background: isActive ? '#7c3aed' : '#3a3d52',
+        border: `1px solid ${isActive ? '#a855f7' : '#484c62'}`,
         borderRadius: 6, padding: '4px 8px',
         fontSize: 13, fontFamily: 'monospace', fontWeight: 600,
         color: isActive ? '#fff' : '#94a3b8',
@@ -100,7 +100,7 @@ function AttentionMap({ weights, tokens }) {
               <div key={j} style={{
                 width: cellSize, height: cellSize,
                 background: `rgba(124,58,237,${w.toFixed(2)})`,
-                border: '1px solid #1a1a2e',
+                border: '1px solid #323548',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 fontSize: 8, color: w > 0.4 ? '#fff' : '#555',
               }} title={`[${i}→${j}]: ${w.toFixed(3)}`}>
@@ -126,12 +126,12 @@ function PredictionBar({ token, prob, rank }) {
   return (
     <div style={{ marginBottom: 6 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3, fontSize: 12 }}>
-        <span style={{ fontFamily: 'monospace', color: '#e2e8f0', background: '#1e1e2e', padding: '1px 6px', borderRadius: 4 }}>
+        <span style={{ fontFamily: 'monospace', color: '#e2e8f0', background: '#3a3d52', padding: '1px 6px', borderRadius: 4 }}>
           {token === ' ' ? '␣' : token === '\n' ? '↵' : token || '?'}
         </span>
         <span style={{ color: '#9ca3af' }}>{(prob * 100).toFixed(1)}%</span>
       </div>
-      <div style={{ height: 6, background: '#1e1e2e', borderRadius: 3, overflow: 'hidden' }}>
+      <div style={{ height: 6, background: '#3a3d52', borderRadius: 3, overflow: 'hidden' }}>
         <div style={{
           height: '100%', width: `${prob * 100}%`,
           background: colors[rank] || '#4c1d95',
@@ -155,9 +155,9 @@ function StageIndicator({ currentStage }) {
           <div key={s} style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
             <div style={{
               padding: '5px 12px', borderRadius: 20, fontSize: 11, fontWeight: 600,
-              background: isActive ? info.color : isDone ? '#1a2e1a' : '#1a1a2e',
+              background: isActive ? info.color : isDone ? '#1e2e22' : '#323548',
               color: isActive ? '#fff' : isDone ? '#22c55e' : '#4b5563',
-              border: `1px solid ${isActive ? info.color : isDone ? '#22c55e33' : '#2d2d3e'}`,
+              border: `1px solid ${isActive ? info.color : isDone ? '#22c55e33' : '#484c62'}`,
               transition: 'all 0.3s',
               boxShadow: isActive ? `0 0 14px ${info.color}66` : 'none',
               whiteSpace: 'nowrap'
@@ -165,7 +165,7 @@ function StageIndicator({ currentStage }) {
               {info.icon} {info.label}
             </div>
             {i < stages.length - 1 && (
-              <div style={{ width: 16, height: 1, background: isDone ? '#22c55e44' : '#1e1e2e', flexShrink: 0 }} />
+              <div style={{ width: 16, height: 1, background: isDone ? '#22c55e44' : '#3a3d52', flexShrink: 0 }} />
             )}
           </div>
         )
@@ -275,7 +275,7 @@ function LLMSimulator() {
     : '—'
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0f', padding: '20px 24px' }}>
+    <div style={{ minHeight: '100vh', background: '#242633', padding: '20px 24px' }}>
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
         <h1 style={{ fontSize: 26, fontWeight: 700, color: '#f1f5f9', marginBottom: 4 }}>
@@ -288,7 +288,7 @@ function LLMSimulator() {
 
       {/* Controls row */}
       <div style={{
-        background: '#13131a', border: '1px solid #1e1e2e', borderRadius: 12,
+        background: '#2e3044', border: '1px solid #3a3d52', borderRadius: 12,
         padding: '16px', marginBottom: 14, display: 'flex',
         alignItems: 'flex-start', gap: 16, flexWrap: 'wrap'
       }}>
@@ -300,7 +300,7 @@ function LLMSimulator() {
             value={text} onChange={e => setText(e.target.value)}
             disabled={running} rows={3}
             style={{
-              width: '100%', background: '#0a0a0f', border: '1px solid #2d2d3e',
+              width: '100%', background: '#242633', border: '1px solid #484c62',
               color: '#e2e8f0', borderRadius: 8, padding: '8px 10px', fontSize: 12,
               fontFamily: 'monospace', resize: 'vertical', outline: 'none',
               opacity: running ? 0.5 : 1
@@ -313,7 +313,7 @@ function LLMSimulator() {
             disabled={running}
             style={{
               display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px',
-              background: running ? '#1a1a2e' : '#7c3aed', color: '#fff',
+              background: running ? '#323548' : '#7c3aed', color: '#fff',
               border: 'none', borderRadius: 8, cursor: running ? 'not-allowed' : 'pointer',
               fontWeight: 600, fontSize: 13,
               boxShadow: running ? 'none' : '0 0 20px rgba(124,58,237,0.35)',
@@ -327,7 +327,7 @@ function LLMSimulator() {
             disabled={!initialized}
             style={{
               display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px',
-              background: '#1e1e2e', color: running ? '#f59e0b' : '#22c55e',
+              background: '#3a3d52', color: running ? '#f59e0b' : '#22c55e',
               border: `1px solid ${running ? '#f59e0b44' : '#22c55e44'}`,
               borderRadius: 8, cursor: initialized ? 'pointer' : 'not-allowed',
               fontWeight: 600, fontSize: 13, opacity: initialized ? 1 : 0.4
@@ -338,7 +338,7 @@ function LLMSimulator() {
           <button onClick={() => { setRunning(false); setTimeout(init, 50) }}
             style={{
               display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px',
-              background: '#1e1e2e', color: '#9ca3af', border: '1px solid #2d2d3e',
+              background: '#3a3d52', color: '#9ca3af', border: '1px solid #484c62',
               borderRadius: 8, cursor: 'pointer', fontWeight: 600, fontSize: 13
             }}
           >
@@ -355,8 +355,8 @@ function LLMSimulator() {
             { label: 'Params',      value: totalParams ? `~${totalParams}` : '—' },
           ].map(({ label, value }) => (
             <div key={label} style={{
-              textAlign: 'center', background: '#0a0a0f',
-              padding: '8px 14px', borderRadius: 8, border: '1px solid #1e1e2e'
+              textAlign: 'center', background: '#242633',
+              padding: '8px 14px', borderRadius: 8, border: '1px solid #3a3d52'
             }}>
               <div style={{ fontSize: 18, fontWeight: 700, color: '#f1f5f9', fontVariantNumeric: 'tabular-nums' }}>{value}</div>
               <div style={{ fontSize: 10, color: '#6b7280', marginTop: 2, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</div>
@@ -366,7 +366,7 @@ function LLMSimulator() {
       </div>
 
       {/* Stage pipeline */}
-      <div style={{ background: '#13131a', border: '1px solid #1e1e2e', borderRadius: 12, padding: '12px 16px', marginBottom: 14 }}>
+      <div style={{ background: '#2e3044', border: '1px solid #3a3d52', borderRadius: 12, padding: '12px 16px', marginBottom: 14 }}>
         <StageIndicator currentStage={stage} />
       </div>
 
@@ -426,11 +426,11 @@ function LLMSimulator() {
           {lossHistory.length > 1 ? (
             <ResponsiveContainer width="100%" height={140}>
               <LineChart data={lossHistory} margin={{ top: 5, right: 5, bottom: 0, left: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e1e2e" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#3a3d52" />
                 <XAxis dataKey="step" tick={{ fontSize: 9, fill: '#6b7280' }} />
                 <YAxis tick={{ fontSize: 9, fill: '#6b7280' }} domain={['auto', 'auto']} width={35} />
                 <Tooltip
-                  contentStyle={{ background: '#13131a', border: '1px solid #2d2d3e', borderRadius: 6, fontSize: 11 }}
+                  contentStyle={{ background: '#2e3044', border: '1px solid #484c62', borderRadius: 6, fontSize: 11 }}
                   labelStyle={{ color: '#9ca3af' }}
                   itemStyle={{ color: '#a78bfa' }}
                 />
@@ -438,7 +438,7 @@ function LLMSimulator() {
               </LineChart>
             </ResponsiveContainer>
           ) : (
-            <div style={{ height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#374151', fontSize: 12 }}>
+            <div style={{ height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#555a6b', fontSize: 12 }}>
               Start training to see the loss curve
             </div>
           )}
@@ -447,14 +447,14 @@ function LLMSimulator() {
         <Card title="5. Next Token Predictions" icon={ChevronRight}>
           <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 10 }}>
             {currentContext
-              ? <>Given <span style={{ fontFamily: 'monospace', color: '#a78bfa', background: '#1e1e2e', padding: '1px 6px', borderRadius: 4 }}>
+              ? <>Given <span style={{ fontFamily: 'monospace', color: '#a78bfa', background: '#3a3d52', padding: '1px 6px', borderRadius: 4 }}>
                   {currentContext.split('').map(c => c === ' ' ? '␣' : c === '\n' ? '↵' : c).join('')}
                 </span> predict next character</>
               : 'Start training to see predictions'}
           </div>
           {predictions.length > 0
             ? predictions.map((p, i) => <PredictionBar key={i} token={p.token} prob={p.prob} rank={i} />)
-            : <div style={{ color: '#374151', fontSize: 12 }}>No predictions yet</div>
+            : <div style={{ color: '#555a6b', fontSize: 12 }}>No predictions yet</div>
           }
         </Card>
 
@@ -470,7 +470,7 @@ function LLMSimulator() {
               { label: 'Loss fn',         value: 'Cross-entropy' },
               { label: 'Learning rate',   value: '0.08' },
             ].map(({ label, value }) => (
-              <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #1a1a2e' }}>
+              <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '5px 0', borderBottom: '1px solid #323548' }}>
                 <span style={{ color: '#6b7280' }}>{label}</span>
                 <span style={{ color: '#e2e8f0', fontFamily: 'monospace', fontSize: 11 }}>{value}</span>
               </div>
@@ -480,7 +480,7 @@ function LLMSimulator() {
 
       </div>
 
-      <div style={{ marginTop: 16, textAlign: 'center', color: '#374151', fontSize: 11 }}>
+      <div style={{ marginTop: 16, textAlign: 'center', color: '#555a6b', fontSize: 11 }}>
         Educational simulation. Real LLMs use the same core principles at massive scale — billions of parameters, terabytes of data.
       </div>
     </div>
@@ -495,8 +495,8 @@ const TABS = [
 export default function App() {
   const [tab, setTab] = useState('llm')
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0f' }}>
-      <div style={{ background: '#0d0d14', borderBottom: '1px solid #1e1e2e', padding: '0 24px', display: 'flex' }}>
+    <div style={{ minHeight: '100vh', background: '#242633' }}>
+      <div style={{ background: '#1e2030', borderBottom: '1px solid #3a3d52', padding: '0 24px', display: 'flex' }}>
         {TABS.map(t => (
           <button key={t.id} onClick={() => setTab(t.id)}
             style={{

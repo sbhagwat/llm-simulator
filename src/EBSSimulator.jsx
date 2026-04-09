@@ -38,7 +38,7 @@ function simulateLatency(blockBytes, isWrite, queueDepth) {
 // ─── sub-components ──────────────────────────────────────────────────────────
 function Card({ title, icon: Icon, children, style }) {
   return (
-    <div style={{ background: '#13131a', border: '1px solid #1e1e2e', borderRadius: 12, padding: 16, ...style }}>
+    <div style={{ background: '#2e3044', border: '1px solid #3a3d52', borderRadius: 12, padding: 16, ...style }}>
       {title && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
           {Icon && <Icon size={14} color="#7c3aed" />}
@@ -54,7 +54,7 @@ function Card({ title, icon: Icon, children, style }) {
 
 function StatBox({ label, value, sub, color = '#f1f5f9' }) {
   return (
-    <div style={{ textAlign: 'center', background: '#0a0a0f', padding: '10px 16px', borderRadius: 8, border: '1px solid #1e1e2e', minWidth: 90 }}>
+    <div style={{ textAlign: 'center', background: '#242633', padding: '10px 16px', borderRadius: 8, border: '1px solid #3a3d52', minWidth: 90 }}>
       <div style={{ fontSize: 20, fontWeight: 700, color, fontVariantNumeric: 'tabular-nums' }}>{value}</div>
       {sub && <div style={{ fontSize: 10, color: '#7c3aed', marginTop: 1 }}>{sub}</div>}
       <div style={{ fontSize: 10, color: '#6b7280', marginTop: 2, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</div>
@@ -67,7 +67,7 @@ function PipelineArrow({ label, color, active, pct }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
       <div style={{ fontSize: 9, color: '#4b5563', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{label}</div>
-      <div style={{ position: 'relative', width: 64, height: 12, background: '#1a1a2e', borderRadius: 6, overflow: 'hidden' }}>
+      <div style={{ position: 'relative', width: 64, height: 12, background: '#323548', borderRadius: 6, overflow: 'hidden' }}>
         <div style={{
           position: 'absolute', left: 0, top: 0, bottom: 0,
           width: `${pct}%`,
@@ -77,7 +77,7 @@ function PipelineArrow({ label, color, active, pct }) {
           boxShadow: active ? `0 0 8px ${color}88` : 'none'
         }} />
       </div>
-      <div style={{ fontSize: 9, color: active ? color : '#374151' }}>{pct}%</div>
+      <div style={{ fontSize: 9, color: active ? color : '#555a6b' }}>{pct}%</div>
     </div>
   )
 }
@@ -91,8 +91,8 @@ function QueueViz({ slots, label, color }) {
         {slots.map((s, i) => (
           <div key={i} style={{
             width: 16, height: 16, borderRadius: 3,
-            background: s.used ? (s.type === 'write' ? '#7c3aed' : '#06b6d4') : '#1a1a2e',
-            border: `1px solid ${s.used ? color : '#2d2d3e'}`,
+            background: s.used ? (s.type === 'write' ? '#7c3aed' : '#06b6d4') : '#323548',
+            border: `1px solid ${s.used ? color : '#484c62'}`,
             transition: 'background 0.2s',
             boxShadow: s.used ? `0 0 4px ${color}66` : 'none',
           }} title={s.used ? `cmd#${s.id} ${s.type}` : 'empty'} />
@@ -111,13 +111,13 @@ function NandMap({ pages }) {
           p.state === 'written'   ? '#7c3aed' :
           p.state === 'active'    ? '#f59e0b' :
           p.state === 'read'      ? '#06b6d4' :
-          p.state === 'erased'    ? '#1a2e1a' :
-                                    '#1a1a2e'
+          p.state === 'erased'    ? '#1e2e22' :
+                                    '#323548'
         return (
           <div key={i} style={{
             width: 14, height: 14, borderRadius: 2,
             background: bg,
-            border: '1px solid #0a0a0f',
+            border: '1px solid #242633',
             transition: 'background 0.3s',
           }} title={`page ${i}: ${p.state}`} />
         )
@@ -130,17 +130,17 @@ function NandMap({ pages }) {
 function Stage({ label, icon: Icon, color, active, sublabel }) {
   return (
     <div style={{
-      background: active ? `${color}22` : '#13131a',
-      border: `1px solid ${active ? color : '#2d2d3e'}`,
+      background: active ? `${color}22` : '#2e3044',
+      border: `1px solid ${active ? color : '#484c62'}`,
       borderRadius: 10, padding: '10px 14px',
       display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
       transition: 'all 0.25s',
       boxShadow: active ? `0 0 16px ${color}44` : 'none',
       minWidth: 90
     }}>
-      <Icon size={18} color={active ? color : '#374151'} />
+      <Icon size={18} color={active ? color : '#555a6b'} />
       <span style={{ fontSize: 11, fontWeight: 600, color: active ? color : '#4b5563', textAlign: 'center' }}>{label}</span>
-      {sublabel && <span style={{ fontSize: 9, color: active ? '#9ca3af' : '#374151', textAlign: 'center' }}>{sublabel}</span>}
+      {sublabel && <span style={{ fontSize: 9, color: active ? '#9ca3af' : '#555a6b', textAlign: 'center' }}>{sublabel}</span>}
     </div>
   )
 }
@@ -150,14 +150,14 @@ function Arrow({ active, color = '#7c3aed' }) {
     <div style={{ display: 'flex', alignItems: 'center', padding: '0 2px' }}>
       <div style={{
         width: 28, height: 2,
-        background: active ? color : '#1e1e2e',
+        background: active ? color : '#3a3d52',
         position: 'relative',
         transition: 'background 0.2s',
         boxShadow: active ? `0 0 6px ${color}` : 'none'
       }}>
         <div style={{
           position: 'absolute', right: -4, top: -4,
-          borderLeft: `8px solid ${active ? color : '#1e1e2e'}`,
+          borderLeft: `8px solid ${active ? color : '#3a3d52'}`,
           borderTop: '5px solid transparent',
           borderBottom: '5px solid transparent',
           transition: 'border-color 0.2s'
@@ -346,7 +346,7 @@ export default function EBSSimulator() {
   const as = activeStages
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0f', padding: '20px 24px' }}>
+    <div style={{ minHeight: '100vh', background: '#242633', padding: '20px 24px' }}>
       {/* Header */}
       <div style={{ marginBottom: 20 }}>
         <h1 style={{ fontSize: 26, fontWeight: 700, color: '#f1f5f9', marginBottom: 4 }}>
@@ -358,7 +358,7 @@ export default function EBSSimulator() {
       </div>
 
       {/* Controls */}
-      <div style={{ background: '#13131a', border: '1px solid #1e1e2e', borderRadius: 12, padding: 16, marginBottom: 14, display: 'flex', alignItems: 'flex-end', gap: 20, flexWrap: 'wrap' }}>
+      <div style={{ background: '#2e3044', border: '1px solid #3a3d52', borderRadius: 12, padding: 16, marginBottom: 14, display: 'flex', alignItems: 'flex-end', gap: 20, flexWrap: 'wrap' }}>
         {/* Queue depth */}
         <div>
           <label style={{ fontSize: 11, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: 6 }}>
@@ -376,9 +376,9 @@ export default function EBSSimulator() {
               <button key={s} onClick={() => setBlockSize(s)} disabled={running}
                 style={{
                   padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: running ? 'not-allowed' : 'pointer',
-                  background: blockSize === s ? '#7c3aed' : '#1e1e2e',
+                  background: blockSize === s ? '#7c3aed' : '#3a3d52',
                   color: blockSize === s ? '#fff' : '#6b7280',
-                  border: `1px solid ${blockSize === s ? '#7c3aed' : '#2d2d3e'}`
+                  border: `1px solid ${blockSize === s ? '#7c3aed' : '#484c62'}`
                 }}>{s}</button>
             ))}
           </div>
@@ -397,7 +397,7 @@ export default function EBSSimulator() {
           <button onClick={() => setRunning(r => !r)}
             style={{
               display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px',
-              background: running ? '#1e1e2e' : '#7c3aed', color: running ? '#f59e0b' : '#fff',
+              background: running ? '#3a3d52' : '#7c3aed', color: running ? '#f59e0b' : '#fff',
               border: `1px solid ${running ? '#f59e0b44' : 'transparent'}`,
               borderRadius: 8, cursor: 'pointer', fontWeight: 600, fontSize: 13,
               boxShadow: running ? 'none' : '0 0 18px rgba(124,58,237,0.4)'
@@ -407,7 +407,7 @@ export default function EBSSimulator() {
           <button onClick={reset}
             style={{
               display: 'flex', alignItems: 'center', gap: 8, padding: '10px 16px',
-              background: '#1e1e2e', color: '#9ca3af', border: '1px solid #2d2d3e',
+              background: '#3a3d52', color: '#9ca3af', border: '1px solid #484c62',
               borderRadius: 8, cursor: 'pointer', fontWeight: 600, fontSize: 13
             }}>
             <RotateCcw size={14} /> Reset
@@ -448,7 +448,7 @@ export default function EBSSimulator() {
           </div>
           {/* EBS network + remote NAND */}
           <div style={{ display: 'flex', alignItems: 'center', marginLeft: 360 }}>
-            <div style={{ width: 2, height: 28, background: as.has('controller') ? '#f97316' : '#1e1e2e', transition: 'background 0.2s', marginLeft: 44 }} />
+            <div style={{ width: 2, height: 28, background: as.has('controller') ? '#f97316' : '#3a3d52', transition: 'background 0.2s', marginLeft: 44 }} />
           </div>
           <div style={{ display: 'flex', alignItems: 'center', marginLeft: 360 }}>
             <Arrow active={as.has('controller') || as.has('network')} color="#ef4444" />
@@ -476,7 +476,7 @@ export default function EBSSimulator() {
           <div style={{ marginTop: 10, fontSize: 11, color: '#6b7280', lineHeight: 1.6 }}>
             <span style={{ color: '#7c3aed' }}>■</span> Write &nbsp;
             <span style={{ color: '#06b6d4' }}>■</span> Read &nbsp;
-            <span style={{ color: '#2d2d3e' }}>■</span> Empty slot<br />
+            <span style={{ color: '#484c62' }}>■</span> Empty slot<br />
             CPU writes command → SQ tail, rings doorbell register → controller DMA-fetches → writes CQ entry
           </div>
         </Card>
@@ -489,7 +489,7 @@ export default function EBSSimulator() {
           <NandMap pages={nandPages} />
           <div style={{ marginTop: 10, display: 'flex', gap: 12, fontSize: 11, color: '#6b7280', flexWrap: 'wrap' }}>
             {[
-              { color: '#1a1a2e', label: 'Free' },
+              { color: '#323548', label: 'Free' },
               { color: '#f59e0b', label: 'Active write' },
               { color: '#7c3aed', label: 'Written' },
               { color: '#06b6d4', label: 'Read' },
@@ -517,19 +517,19 @@ export default function EBSSimulator() {
                       <span style={{ color: '#9ca3af' }}>{b.label}</span>
                       <span style={{ color: b.color, fontFamily: 'monospace' }}>{b.value}µs</span>
                     </div>
-                    <div style={{ height: 7, background: '#1e1e2e', borderRadius: 4, overflow: 'hidden' }}>
+                    <div style={{ height: 7, background: '#3a3d52', borderRadius: 4, overflow: 'hidden' }}>
                       <div style={{ height: '100%', width: `${b.pct * 100}%`, background: b.color, borderRadius: 4, transition: 'width 0.4s' }} />
                     </div>
                   </div>
                 ))}
-                <div style={{ marginTop: 10, paddingTop: 10, borderTop: '1px solid #1e1e2e', display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
+                <div style={{ marginTop: 10, paddingTop: 10, borderTop: '1px solid #3a3d52', display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
                   <span style={{ color: '#6b7280' }}>Total end-to-end</span>
                   <span style={{ color: '#f1f5f9', fontWeight: 700, fontFamily: 'monospace' }}>{r.total}µs</span>
                 </div>
               </div>
             )
           })() : (
-            <div style={{ color: '#374151', fontSize: 12 }}>Start I/O to see latency breakdown</div>
+            <div style={{ color: '#555a6b', fontSize: 12 }}>Start I/O to see latency breakdown</div>
           )}
         </Card>
 
@@ -541,17 +541,17 @@ export default function EBSSimulator() {
           {iopsHistory.length > 1 ? (
             <ResponsiveContainer width="100%" height={140}>
               <BarChart data={iopsHistory} margin={{ top: 5, right: 5, bottom: 0, left: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e1e2e" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#3a3d52" />
                 <XAxis dataKey="t" tick={{ fontSize: 9, fill: '#6b7280' }} />
                 <YAxis tick={{ fontSize: 9, fill: '#6b7280' }} width={32} />
-                <Tooltip contentStyle={{ background: '#13131a', border: '1px solid #2d2d3e', borderRadius: 6, fontSize: 11 }} />
+                <Tooltip contentStyle={{ background: '#2e3044', border: '1px solid #484c62', borderRadius: 6, fontSize: 11 }} />
                 <Bar dataKey="write" name="Write" fill="#7c3aed" stackId="a" radius={[0,0,0,0]} />
                 <Bar dataKey="read"  name="Read"  fill="#06b6d4" stackId="a" radius={[3,3,0,0]} />
                 <Legend wrapperStyle={{ fontSize: 10, color: '#6b7280' }} />
               </BarChart>
             </ResponsiveContainer>
           ) : (
-            <div style={{ height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#374151', fontSize: 12 }}>Start I/O to see IOPS</div>
+            <div style={{ height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#555a6b', fontSize: 12 }}>Start I/O to see IOPS</div>
           )}
         </Card>
 
@@ -559,15 +559,15 @@ export default function EBSSimulator() {
           {latHistory.length > 1 ? (
             <ResponsiveContainer width="100%" height={140}>
               <LineChart data={latHistory} margin={{ top: 5, right: 5, bottom: 0, left: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e1e2e" />
+                <CartesianGrid strokeDasharray="3 3" stroke="#3a3d52" />
                 <XAxis dataKey="t" tick={{ fontSize: 9, fill: '#6b7280' }} />
                 <YAxis tick={{ fontSize: 9, fill: '#6b7280' }} width={36} unit="µs" />
-                <Tooltip contentStyle={{ background: '#13131a', border: '1px solid #2d2d3e', borderRadius: 6, fontSize: 11 }} />
+                <Tooltip contentStyle={{ background: '#2e3044', border: '1px solid #484c62', borderRadius: 6, fontSize: 11 }} />
                 <Line type="monotone" dataKey="lat" name="Latency" stroke="#f59e0b" strokeWidth={2} dot={false} />
               </LineChart>
             </ResponsiveContainer>
           ) : (
-            <div style={{ height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#374151', fontSize: 12 }}>Start I/O to see latency</div>
+            <div style={{ height: 140, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#555a6b', fontSize: 12 }}>Start I/O to see latency</div>
           )}
         </Card>
       </div>
@@ -575,14 +575,14 @@ export default function EBSSimulator() {
       {/* Request log */}
       <Card title="I/O Request Log" icon={Database}>
         {reqLog.length === 0 ? (
-          <div style={{ color: '#374151', fontSize: 12 }}>No requests yet</div>
+          <div style={{ color: '#555a6b', fontSize: 12 }}>No requests yet</div>
         ) : (
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 11 }}>
               <thead>
                 <tr>
                   {['Cmd ID', 'Type', 'Size', 'Queue (µs)', 'PCIe (µs)', 'NAND (µs)', 'Network (µs)', 'Total (µs)'].map(h => (
-                    <th key={h} style={{ textAlign: 'left', color: '#4b5563', padding: '4px 10px', borderBottom: '1px solid #1e1e2e', fontWeight: 500 }}>{h}</th>
+                    <th key={h} style={{ textAlign: 'left', color: '#4b5563', padding: '4px 10px', borderBottom: '1px solid #3a3d52', fontWeight: 500 }}>{h}</th>
                   ))}
                 </tr>
               </thead>
@@ -606,7 +606,7 @@ export default function EBSSimulator() {
       </Card>
 
       {/* Concept explainer */}
-      <div style={{ marginTop: 14, background: '#13131a', border: '1px solid #1e1e2e', borderRadius: 12, padding: 16 }}>
+      <div style={{ marginTop: 14, background: '#2e3044', border: '1px solid #3a3d52', borderRadius: 12, padding: 16 }}>
         <div style={{ fontSize: 11, fontWeight: 600, color: '#9ca3af', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>
           How it works (real NVMe / EBS)
         </div>
@@ -625,7 +625,7 @@ export default function EBSSimulator() {
         </div>
       </div>
 
-      <div style={{ marginTop: 14, textAlign: 'center', color: '#374151', fontSize: 11 }}>
+      <div style={{ marginTop: 14, textAlign: 'center', color: '#555a6b', fontSize: 11 }}>
         Latency values are modeled approximations. Real EBS gp3 delivers up to 16,000 IOPS and 1,000 MB/s with ~1ms p99 latency.
       </div>
     </div>
